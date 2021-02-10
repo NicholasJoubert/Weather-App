@@ -34,7 +34,6 @@ var epochToTime = function(x,timezone){
   var tzFormat = timezone/3600;
 
   if(tzFormat<0){
-    console.log("timezone less then zero")
     hrs+=24;
   }
   hrs += tzFormat-clientTimeDifference; 
@@ -42,6 +41,7 @@ var epochToTime = function(x,timezone){
 
   return hrs +":"+mins;
 }
+// determining cardenal point from wind direction
 
 var cPoint = function(x){
   var point;
@@ -73,16 +73,18 @@ var cPoint = function(x){
 }
 
 
-function msToTime(ms) {
-
-    var mins = ms/1000/60%60;
-    var hrs = ms/1000/60/60%24;
-  
-    return hrs + ':' + mins;
-  }
+// converting wind speed data to Knots  
 
 function metersPerSecondToKnots(x){
-  return x*1.94384;
+  var knots = Math.round(x*1.94384);
+  var endingString; 
+  if(knots == 1){
+    endingString = " Knot";
+  }
+  else{
+    endingString = " Knots";
+  }
+  return knots+endingString;
 }
 
 // data fetching function
@@ -111,7 +113,7 @@ var update = function(){
     tempHigh.innerHTML = Math.round(tempHighValue)+String.fromCharCode(176);
     tempLow.innerHTML = Math.round(tempLowValue)+String.fromCharCode(176);
     currentTemp.innerHTML = Math.round(tempCurrentValue)+String.fromCharCode(176);
-    windSpeed.innerHTML = Math.round(metersPerSecondToKnots(windSpeedValue))+" Knots";
+    windSpeed.innerHTML = metersPerSecondToKnots(windSpeedValue);
     windDirection.innerHTML = cPoint(windDirectionValue);
     place.innerHTML = data.name+", "+data.sys.country;
     description.innerHTML = data.weather[0].description;
@@ -124,36 +126,16 @@ var update = function(){
 
 
 
+update()
 
 
+var input = document.getElementById("cityInput");
+input.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+   event.preventDefault();
+   document.getElementById("submit").click();
+  }
+});
 
-
-
-
-
-
-
-// var input = document.querySelector('.input_text');
-// var main = document.querySelector('#name');
-// var temp = document.querySelector('.temp');
-// var desc = document.querySelector('.desc');
-// var clouds = document.querySelector('.clouds');
-// var button= document.querySelector('.submit');
-
-
-// button.addEventListener('click', function(name){
-// fetch('https://api.openweathermap.org/data/2.5/weather?q='+input.value+'&appid=50a7aa80fa492fa92e874d23ad061374')
-// .then(response => response.json())
-// .then(data => {
-//   var tempValue = data['main']['temp'];
-//   var nameValue = data['name'];
-//   var descValue = data['weather'][0]['description'];
-
-//   main.innerHTML = nameValue;
-//   desc.innerHTML = "Desc - "+descValue;
-//   temp.innerHTML = "Temp - "+tempValue;
-//   input.value ="";
-
-// })
 
 
