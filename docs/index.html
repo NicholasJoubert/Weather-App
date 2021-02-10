@@ -14,7 +14,7 @@
 <main class="main-container">
 
   <div class="location-and-date">
-    <h1 class="location-and-date__location" id="location">London, UK</h1>
+    <h1 class="location-and-date__location" id="place">London, UK</h1>
     <div id="date">Sunday 4th August</div>
   </div>
 
@@ -24,8 +24,8 @@
       <img src="icons/mostly-sunny.svg" class="current-temperature__icon" alt="">
     </div>
     <div class="current-temperature__content-container">
-      <div class="current-temperature__value">21&deg;</div>
-      <div class="current-temperature__summary">Mostly Sunny</div>
+      <div class="current-temperature__value" id="currentTemp">21&deg;</div>
+      <div class="current-temperature__summary" id="description">Mostly Sunny</div>
     </div>
   </div>
 
@@ -41,7 +41,7 @@
       <div class="current-stats__value" id="windSpeed">7mph</div>
       <div class="current-stats__label">Wind</div>
       <div class="current-stats__value" id="windDirection">0%</div>
-      <div class="current-stats__label">Rain</div>
+      <div class="current-stats__label">Wind Direction</div>
     </div>
     <div>
       <div class="current-stats__value" id="sunrise">05:27</div>
@@ -51,8 +51,8 @@
     </div>
   </div>
   <div class="input">
-    <input type="text" placeholder="Enter the city" class="input_text" value="London">
-    <input type="submit" value="Submit" class="submit">
+    <input type="text" placeholder="Enter the city" id="cityInput" class="input_text" value="New York">
+    <input type="submit" value="Submit" class="submit" onclick=update()>
   </div>
 </main>
 
